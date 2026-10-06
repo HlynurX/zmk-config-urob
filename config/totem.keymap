@@ -1,0 +1,49 @@
+#define CONFIG_WIRELESS
+
+/* TOTEM: 34-key base + 4 extra keys (outer pinkies and outer thumbs).
+ *
+ *        ╭────────────────────┬────────────────────╮
+ *        │  LT                │                 RT │
+ *     ╭──╯  LM                │                 RM ╰──╮
+ *     │ OL  LB                │                 RB OR │
+ *     ╰──────────╮ TL  LH     │     RH  TR ╭──────────╯
+ *                ╰────────────┴────────────╯
+ *
+ * The extra keys are set per layer in the table below as
+ * (OL outer-left pinky, OR outer-right pinky, TL left thumb, TR right thumb).
+ * Gaming mode: hold space (Nav) + OR toggles it on; in Game, hold TR (Nav) + OR
+ * toggles it off again.
+ */
+#define TOTEM_EXTRAS_Base  (&kp LSHFT, &kp SQT,   &kp LGUI,             &smart_mouse)
+#define TOTEM_EXTRAS_Game  (&kp LSHFT, &kp SQT,   &game_ctl LCTRL ESC,  &lt NAV DEL)
+#define TOTEM_EXTRAS_Nav   (___,       &tog GAME, ___,                  ___)
+#define TOTEM_EXTRAS_Fn    (___,       ___,       ___,                  ___)
+#define TOTEM_EXTRAS_Num   (___,       ___,       ___,                  ___)
+#define TOTEM_EXTRAS_Sys   (___,       ___,       ___,                  ___)
+#define TOTEM_EXTRAS_Mouse (___,       ___,       ___,                  ___)
+
+#define _TOTEM_OL(ol, or, tl, tr) ol
+#define _TOTEM_OR(ol, or, tl, tr) or
+#define _TOTEM_TL(ol, or, tl, tr) tl
+#define _TOTEM_TR(ol, or, tl, tr) tr
+#define TOTEM_OL(extras) _TOTEM_OL extras
+#define TOTEM_OR(extras) _TOTEM_OR extras
+#define TOTEM_TL(extras) _TOTEM_TL extras
+#define TOTEM_TR(extras) _TOTEM_TR extras
+
+#define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                   \
+    ZMK_LAYER(                                                                 \
+        name,                                                                  \
+                                         LT RT                                 \
+                                         LM RM                                 \
+        TOTEM_OL(TOTEM_EXTRAS_##name)    LB RB    TOTEM_OR(TOTEM_EXTRAS_##name)\
+        TOTEM_TL(TOTEM_EXTRAS_##name)    LH RH    TOTEM_TR(TOTEM_EXTRAS_##name)\
+    )
+
+#include "zmk-helpers/key-labels/totem.h"
+#include "base.keymap"
+
+// Gaming ctrl/esc thumb: plain tap-preferred, i.e. ctrl only after holding
+// 200ms and never decided early by other keys (same as the old totem config).
+ZMK_HOLD_TAP(game_ctl, bindings = <&kp>, <&kp>; flavor = "tap-preferred";
+             tapping-term-ms = <200>;)

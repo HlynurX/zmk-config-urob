@@ -1,16 +1,22 @@
 #define CONFIG_WIRELESS
 
-/* TOTEM: 34-key base + 4 extra keys (outer pinkies and outer thumbs).
+/* TOTEM: 38 keys = urob's 34-key base + 4 extras (marked with *).
  *
- *        ╭────────────────────┬────────────────────╮
- *        │  LT                │                 RT │
- *     ╭──╯  LM                │                 RM ╰──╮
- *     │ OL  LB                │                 RB OR │
- *     ╰──────────╮ TL  LH     │     RH  TR ╭──────────╯
- *                ╰────────────┴────────────╯
+ *         ╭─────┬─────┬─────┬─────┬─────╮   ╭─────┬─────┬─────┬─────┬─────╮
+ *         │ LT4 │ LT3 │ LT2 │ LT1 │ LT0 │   │ RT0 │ RT1 │ RT2 │ RT3 │ RT4 │
+ *         ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+ *         │ LM4 │ LM3 │ LM2 │ LM1 │ LM0 │   │ RM0 │ RM1 │ RM2 │ RM3 │ RM4 │
+ *   ╭─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────╮
+ *   │ OL* │ LB4 │ LB3 │ LB2 │ LB1 │ LB0 │   │ RB0 │ RB1 │ RB2 │ RB3 │ RB4 │ OR* │
+ *   ╰─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────╯
+ *                     │ TL* │ LH1 │ LH0 │   │ RH0 │ RH1 │ TR* │
+ *                     ╰─────┴─────┴─────╯   ╰─────┴─────┴─────╯
  *
- * The extra keys are set per layer in the table below as
- * (OL outer-left pinky, OR outer-right pinky, TL left thumb, TR right thumb).
+ * Three thumbs per side: LH1/LH0 and RH0/RH1 come from base.keymap (the LH and
+ * RH blocks), TL/TR are the Totem's outer thumbs. The extras are set per layer
+ * in the table below as (OL outer-left pinky, OR outer-right pinky,
+ * TL left outer thumb, TR right outer thumb).
+ *
  * Gaming mode: hold space (Nav) + OR toggles it on; in Game, hold TR (Nav) + OR
  * toggles it off again.
  */
